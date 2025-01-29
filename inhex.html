@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./index.css">
+    <title>Таймер</title>
+</head>
+
+<body>
+    <div class="form-wrapper">
+
+        <form id="form">
+            <input id="year" list="years" placeholder="год" type="text">
+            <datalist id="years">
+                <option value="2020">
+                <option value="2021">
+                <option value="2022">
+                <option value="2023">
+                <option value="2024">
+                <option value="2025">
+                <option value="2026">
+                <option value="2027">
+                <option value="2028">
+                <option value="2029">
+                <option value="2030">
+            </datalist>
+            <input id="month" list="months" placeholder="месяц" type="text">
+            <datalist id="months">
+                <option value="январь">
+                <option value="февраль">
+                <option value="март">
+                <option value="апрель">
+                <option value="май">
+                <option value="июнь">
+                <option value="июль">
+                <option value="август">
+                <option value="сентябрь">
+                <option value="октябрь">
+                <option value="ноябрь">
+                <option value="декабрь">
+            </datalist>
+            <input id="days" list="day" placeholder="день" type="text">
+            <datalist id="day">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+                <option value="4">
+                <option value="5">
+                <option value="6">
+                <option value="7">
+                <option value="8">
+                <option value="9">
+                <option value="10">
+                <option value="11">
+                <option value="12">
+                <option value="13">
+                <option value="14">
+                <option value="15">
+                <option value="16">
+                <option value="17">
+                <option value="18">
+                <option value="19">
+                <option value="20">
+                <option value="21">
+                <option value="22">
+                <option value="23">
+                <option value="24">
+                <option value="25">
+                <option value="26">
+                <option value="27">
+                <option value="28">
+                <option value="29">
+                <option value="30">
+                <option value="31">
+            </datalist>
+            <input id="hours" list="hour" placeholder="часы" type="text">
+            <datalist id="hour">
+                <option value="0">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+                <option value="4">
+                <option value="5">
+                <option value="6">
+                <option value="7">
+                <option value="8">
+                <option value="9">
+                <option value="10">
+                <option value="11">
+                <option value="12">
+                <option value="13">
+                <option value="14">
+                <option value="15">
+                <option value="16">
+                <option value="17">
+                <option value="18">
+                <option value="19">
+                <option value="20">
+                <option value="21">
+                <option value="22">
+                <option value="23">
+            </datalist>
+            <input id="minutes" list="minute" placeholder="минуты" type="text">
+            <datalist id="minute">
+                <option value="0">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+                <option value="4">
+                <option value="5">
+                <option value="6">
+                <option value="7">
+                <option value="8">
+                <option value="9">
+                <option value="10">
+                <option value="11">
+                <option value="12">
+                <option value="13">
+                <option value="14">
+                <option value="15">
+                <option value="16">
+                <option value="17">
+                <option value="18">
+                <option value="19">
+                <option value="20">
+                <option value="21">
+                <option value="22">
+                <option value="23">
+                <option value="24">
+                <option value="25">
+                <option value="26">
+                <option value="27">
+                <option value="28">
+                <option value="29">
+                <option value="30">
+                <option value="31">
+                <option value="32">
+                <option value="33">
+                <option value="34">
+                <option value="35">
+                <option value="36">
+                <option value="37">
+                <option value="38">
+                <option value="39">
+                <option value="40">
+                <option value="41">
+                <option value="42">
+                <option value="43">
+                <option value="44">
+                <option value="45">
+                <option value="46">
+                <option value="47">
+                <option value="48">
+                <option value="49">
+                <option value="50">
+                <option value="51">
+                <option value="52">
+                <option value="53">
+                <option value="54">
+                <option value="55">
+                <option value="56">
+                <option value="57">
+                <option value="58">
+                <option value="59">
+            </datalist>
+            <input id="seconds" list="second" placeholder="секунды" type="text">
+            <datalist id="second">
+                <option value="0">
+                <option value="1">
+                <option value="2">
+                <option value="3">
+                <option value="4">
+                <option value="5">
+                <option value="6">
+                <option value="7">
+                <option value="8">
+                <option value="9">
+                <option value="10">
+                <option value="11">
+                <option value="12">
+                <option value="13">
+                <option value="14">
+                <option value="15">
+                <option value="16">
+                <option value="17">
+                <option value="18">
+                <option value="19">
+                <option value="20">
+                <option value="21">
+                <option value="22">
+                <option value="23">
+                <option value="24">
+                <option value="25">
+                <option value="26">
+                <option value="27">
+                <option value="28">
+                <option value="29">
+                <option value="30">
+                <option value="31">
+                <option value="32">
+                <option value="33">
+                <option value="34">
+                <option value="35">
+                <option value="36">
+                <option value="37">
+                <option value="38">
+                <option value="39">
+                <option value="40">
+                <option value="41">
+                <option value="42">
+                <option value="43">
+                <option value="44">
+                <option value="45">
+                <option value="46">
+                <option value="47">
+                <option value="48">
+                <option value="49">
+                <option value="50">
+                <option value="51">
+                <option value="52">
+                <option value="53">
+                <option value="54">
+                <option value="55">
+                <option value="56">
+                <option value="57">
+                <option value="58">
+                <option value="59">
+            </datalist>
+            <button type="submit">установить</button>
+        </form>
+        <button class="button" type="submit">сброс</button>
+    </div>
+
+
+    <div class="wrapper">
+
+        <div class="timer">
+            <div class="timer__days"></div>
+            <div class="timer__hours"></div>
+            <div class="timer__minutes"></div>
+            <div class="timer__seconds"></div>
+        </div>
+
+        <div class="desc">
+            <div class="desc__days">дни</div>
+            <div class="desc__hours">часы</div>
+            <div class="desc__minutes">минуты</div>
+            <div class="desc__seconds">секунды</div>
+        </div>
+
+    </div>
+
+    <script src="./index.js"></script>
+</body>
+
+</html>
