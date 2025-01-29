@@ -8,7 +8,6 @@
 .timer {
     display: flex;
     gap: 20px;
-    /* margin-bottom: 20px; */
 }
 
 .timer__days,
@@ -64,4 +63,41 @@ input {
 button {
     background-color: rgb(97, 243, 29);
     width: 107px;
+}
+
+@media(max-width: 500px) {
+    .wrapper {
+        width: 340px;
+        height: 100px;
+    }
+
+    .timer__days,
+    .timer__hours,
+    .timer__minutes,
+    .timer__seconds {
+        width: 90px;
+        height: 50px;
+        font-size: 25px;
+        line-height: 50px;
+    }
+
+    .desc__days,
+    .desc__hours,
+    .desc__minutes,
+    .desc__seconds {
+        width: 90px;
+        height: 50px;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        line-height: 50px;
+    }
+
+    .timer {
+        gap: 10px;
+    }
+
+    .desc {
+        gap: 10px;
+    }
 }
