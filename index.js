@@ -71,7 +71,10 @@ function upDaterTimer() {
     const data = new Date(textYear, month, textDays, textHours, textMinutes, textSeconds, 0)
     const nowDate = new Date();
 
-    const timeDifferens = nowDate - data;
+    const timeDifferens = Math.abs(data - nowDate);
+
+    console.log(timeDifferens);
+    
 
     const days = Math.floor(timeDifferens / 1000 / 60 / 60 / 24)
     const hours = Math.floor(timeDifferens % (1000 * 60 * 60 * 24) / (1000 * 60 * 60))
