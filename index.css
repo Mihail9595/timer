@@ -82,6 +82,10 @@ button {
         height: 100px;
     }
 
+    .desc-main {
+        width: 340px;
+    }
+
     .timer__days,
     .timer__hours,
     .timer__minutes,
