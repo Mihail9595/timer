@@ -1,23 +1,17 @@
 const form = document.querySelector("#form");
 const date = document.querySelector("#date");
 const desc = document.querySelector("#desc-top");
-const button = document.querySelector(".button");
+// const button = document.querySelector(".button");
+const wrapper = document.querySelector(".wrapper");
 
 form.addEventListener("submit", addTask);
 
-button.addEventListener("click", () => {
-  localStorage.clear();
-    const daysM = document.querySelector(".timer__days");
-  daysM.innerText = 0;
-  const hoursM = document.querySelector(".timer__hours");
-  hoursM.innerText = 0;
-  const minutesM = document.querySelector(".timer__minutes");
-  minutesM.innerText = 0;
-  const secondsM = document.querySelector(".timer__seconds");
-  secondsM.innerText = 0;
-  const descMain = document.querySelector(".desc-main");
-  descMain.innerText = "";
-});
+// button.addEventListener("click", () => {
+//   localStorage.clear();
+//   wrapper.style.display = "none";
+// });
+
+const dateArray = JSON.parse(localStorage.getItem("date")) || [];
 
 function addTask(event) {
   // Отменяем перезагрузку страницы при отправке формы
@@ -26,48 +20,85 @@ function addTask(event) {
   const textDate = date.value;
   const textDesc = desc.value;
 
-  function saveLocalStorage() {
-    localStorage.setItem("date", JSON.stringify(textDate));
-    localStorage.setItem("desc", JSON.stringify(textDesc));
-  }
+  if (!textDate || !textDesc) return;
 
-  saveLocalStorage();
+  const objData = {
+    id: new Date().getTime(),
+    textDate,
+    textDesc,
+  };
 
-  // Очищаем поле ввода и перемешаем на него фокус
-  // days.value = "";
-  // days.focus();
+  dateArray.push(objData);
+
+  localStorage.setItem("date", JSON.stringify(dateArray));
+
+  desc.value = "";
+  date.value = "";
 }
 
 function upDaterTimer() {
-  const textDate = JSON.parse(localStorage.getItem("date"));
-  const textDesc = JSON.parse(localStorage.getItem("desc"));
+  const dataArr = JSON.parse(localStorage.getItem("date"));
 
-  if (textDate === null) return;
+  wrapper.innerHTML = "";
+  
+  if (!dataArr || dataArr.length === 0) return;;
+  
 
-  const data = new Date(textDate);
-  const nowDate = new Date();
+  dataArr.forEach((el) => {
+    const data = new Date(el.textDate);
+    const nowDate = new Date();
+    const timeDifferens = Math.abs(data - nowDate);
+    const days = Math.floor(timeDifferens / 1000 / 60 / 60 / 24);
+    const hours = Math.floor(
+      (timeDifferens % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (timeDifferens % (1000 * 60 * 60)) / (1000 * 60)
+    );
+    const seconds = Math.floor((timeDifferens % (1000 * 60)) / 1000);
 
-  const timeDifferens = Math.abs(data - nowDate);
+    const dateHtml = `
+      <div class="wrapper-timer">
 
-  const days = Math.floor(timeDifferens / 1000 / 60 / 60 / 24);
-  const hours = Math.floor(
-    (timeDifferens % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-  );
-  const minutes = Math.floor((timeDifferens % (1000 * 60 * 60)) / (1000 * 60));
-  const seconds = Math.floor((timeDifferens % (1000 * 60)) / 1000);
+     <div class="desc-main">${el.textDesc}</div>
 
-  const daysM = document.querySelector(".timer__days");
-  daysM.innerText = days;
-  const hoursM = document.querySelector(".timer__hours");
-  hoursM.innerText = hours;
-  const minutesM = document.querySelector(".timer__minutes");
-  minutesM.innerText = minutes;
-  const secondsM = document.querySelector(".timer__seconds");
-  secondsM.innerText = seconds;
-  const descMain = document.querySelector(".desc-main");
-  descMain.innerText = textDesc;
+        <div class="timer">
+         <div class="timer__days">${days}</div>
+         <div class="timer__hours">${hours}</div>
+         <div class="timer__minutes">${minutes}</div>
+         <div class="timer__seconds">${seconds}</div>
+       </div>
+
+        <div class="desc">
+          <div class="desc__days">дни</div>
+          <div class="desc__hours">часы</div>
+          <div class="desc__minutes">минуты</div>
+          <div class="desc__seconds">секунды</div>
+        </div>
+
+        <button class="deleteButton" data-id="${el.id}">Удалить</button>
+     </div>
+     
+   `;
+
+    wrapper.innerHTML += dateHtml;
+  });
 }
 
 setInterval(() => {
   upDaterTimer();
 }, 1000);
+
+wrapper.addEventListener("click", function (e) {
+  if (e.target.classList.contains("deleteButton")) {
+    const dateId = e.target.getAttribute("data-id");
+
+    const date = JSON.parse(localStorage.getItem("date")) || [];
+
+    const dateNew = date.filter((date) => date.id != dateId);
+
+    localStorage.setItem("date", JSON.stringify(dateNew));
+
+    upDaterTimer();
+  }
+});

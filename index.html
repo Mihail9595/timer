@@ -10,31 +10,13 @@
   <body>
     <div class="form-wrapper">
       <form id="form">
-        <input type="datetime-local" id="date" />
-
+        <input type="datetime-local" id="date" required />
         <input id="desc-top" placeholder="описание" type="text" />
-
         <button type="submit">установить</button>
-        <button class="button" type="reset">сброс</button>
       </form>
     </div>
 
-    <div class="wrapper">
-      <div class="desc-main"></div>
-      <div class="timer">
-        <div class="timer__days">0</div>
-        <div class="timer__hours">0</div>
-        <div class="timer__minutes">0</div>
-        <div class="timer__seconds">0</div>
-      </div>
-
-      <div class="desc">
-        <div class="desc__days">дни</div>
-        <div class="desc__hours">часы</div>
-        <div class="desc__minutes">минуты</div>
-        <div class="desc__seconds">секунды</div>
-      </div>
-    </div>
+    <div class="wrapper"></div>
 
     <script src="./index.js"></script>
   </body>
