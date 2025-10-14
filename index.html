@@ -8,10 +8,18 @@
   </head>
 
   <body>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="closeModalBtn" class="close">&times;</span>
+        <h2 class="titleDesc">Событие: </h2>
+        <p>Время вышло!</p>
+      </div>
+    </div>
+
     <div class="form-wrapper">
       <form id="form">
         <input type="datetime-local" id="date" required />
-        <input id="desc-top" placeholder="описание" type="text" />
+        <input id="desc-top" placeholder="описание" type="text" required />
         <button type="submit">установить</button>
       </form>
     </div>

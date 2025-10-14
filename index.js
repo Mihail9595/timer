@@ -1,22 +1,19 @@
 const form = document.querySelector("#form");
 const date = document.querySelector("#date");
 const desc = document.querySelector("#desc-top");
-// const button = document.querySelector(".button");
 const wrapper = document.querySelector(".wrapper");
+const openModalBtn = document.getElementById("openModalBtn");
+const modal = document.getElementById("modal");
+const closeModalBtn = document.getElementById("closeModalBtn");
+const title = modal.querySelector(".titleDesc");
 
 form.addEventListener("submit", addTask);
 
-// button.addEventListener("click", () => {
-//   localStorage.clear();
-//   wrapper.style.display = "none";
-// });
-
-const dateArray = JSON.parse(localStorage.getItem("date")) || [];
-
 function addTask(event) {
-  // Отменяем перезагрузку страницы при отправке формы
   event.preventDefault();
-  // Достаем текст задачи из поля ввода
+
+  const dateArray = JSON.parse(localStorage.getItem("date")) || [];
+
   const textDate = date.value;
   const textDesc = desc.value;
 
@@ -40,9 +37,8 @@ function upDaterTimer() {
   const dataArr = JSON.parse(localStorage.getItem("date"));
 
   wrapper.innerHTML = "";
-  
-  if (!dataArr || dataArr.length === 0) return;;
-  
+
+  if (!dataArr || dataArr.length === 0) return;
 
   dataArr.forEach((el) => {
     const data = new Date(el.textDate);
@@ -56,6 +52,14 @@ function upDaterTimer() {
       (timeDifferens % (1000 * 60 * 60)) / (1000 * 60)
     );
     const seconds = Math.floor((timeDifferens % (1000 * 60)) / 1000);
+
+    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+      title.innerHTML = `Событие: ${el.textDesc}`;
+      modal.style.display = "block";
+      setTimeout(() => {
+        closeModalBtn.style.visibility = "visible";
+      }, 2000);
+    }
 
     const dateHtml = `
       <div class="wrapper-timer">
@@ -92,13 +96,30 @@ setInterval(() => {
 wrapper.addEventListener("click", function (e) {
   if (e.target.classList.contains("deleteButton")) {
     const dateId = e.target.getAttribute("data-id");
-
     const date = JSON.parse(localStorage.getItem("date")) || [];
-
     const dateNew = date.filter((date) => date.id != dateId);
-
     localStorage.setItem("date", JSON.stringify(dateNew));
-
     upDaterTimer();
+  }
+});
+
+closeModalBtn.addEventListener("click", closeModal);
+
+function closeModal() {
+  modal.style.display = "none";
+  detachModalEvents();
+}
+// снимаем обработчик события
+function detachModalEvents() {
+  closeModalBtn.removeEventListener("click", closeModal);
+}
+
+// закрываем модальное окно по любому месту
+window.addEventListener("click", (event) => {
+  // элемент по которому кликнули
+
+  if (event.target === modal) {
+    modal.style.display = "none";
+    detachModalEvents();
   }
 });

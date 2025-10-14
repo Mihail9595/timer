@@ -67,12 +67,12 @@
 }
 
 input {
-  width: 100px;
+  width: 150px;
 }
 
 button {
   background-color: rgb(97, 243, 29);
-  width: 107px;
+  width: 160px;
   cursor: pointer;
 }
 
@@ -87,10 +87,58 @@ button {
   font-weight: 600;
 }
 
+.modal {
+  display: none; /* Скрыто по умолчанию */
+  position: fixed; /* Фиксированное положение */
+  z-index: 1; /* Находится поверх всего */
+  left: 0;
+  top: 0;
+  width: 100%; /* Полная ширина */
+  height: 100%; /* Полная высота */
+  overflow: auto; /* Включаем прокрутку, если нужно */
+  background-color: rgba(0, 0, 0, 0.4); /* Черный фон с прозрачностью */
+}
+ 
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% сверху и по центру */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 12px;
+  width: 80%; /* Может быть больше или меньше, в зависимости от размера экрана */
+  max-width: 600px;
+}
+ 
+.close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+  visibility: hidden;
+  border: 3px solid #aaa;
+  border-radius: 50%;
+}
+ 
+.close:hover {
+  color: #ff0000;
+  border-color: #ff0000;
+}
+
 @media (max-width: 500px) {
   .wrapper {
     width: 340px;
-    height: 100px;
   }
 
   .desc-main {
