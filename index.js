@@ -18,8 +18,10 @@ function addTask(event) {
 
   if (!textDate || !textDesc) return;
 
-  const decrease = new Date(textDate).getTime() - new Date() ? true : false;
-  console.log(decrease);
+  let decrease = false;
+  if (new Date(textDate).getTime() - new Date() > 0) {
+    decrease = true;
+  }
 
   const objData = {
     id: new Date().getTime(),
