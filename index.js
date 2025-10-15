@@ -6,23 +6,26 @@ const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("modal");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const title = modal.querySelector(".titleDesc");
+const buttonModal = document.querySelector(".button-modal");
 
 form.addEventListener("submit", addTask);
 
 function addTask(event) {
   event.preventDefault();
-
   const dateArray = JSON.parse(localStorage.getItem("date")) || [];
-
   const textDate = date.value;
   const textDesc = desc.value;
 
   if (!textDate || !textDesc) return;
 
+  const decrease = new Date(textDate).getTime() - new Date() ? true : false;
+  console.log(decrease);
+
   const objData = {
     id: new Date().getTime(),
     textDate,
     textDesc,
+    decrease,
   };
 
   dateArray.push(objData);
@@ -35,7 +38,6 @@ function addTask(event) {
 
 function upDaterTimer() {
   const dataArr = JSON.parse(localStorage.getItem("date"));
-
   wrapper.innerHTML = "";
 
   if (!dataArr || dataArr.length === 0) return;
@@ -44,6 +46,7 @@ function upDaterTimer() {
     const data = new Date(el.textDate);
     const nowDate = new Date();
     const timeDifferens = Math.abs(data - nowDate);
+
     const days = Math.floor(timeDifferens / 1000 / 60 / 60 / 24);
     const hours = Math.floor(
       (timeDifferens % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
@@ -53,9 +56,14 @@ function upDaterTimer() {
     );
     const seconds = Math.floor((timeDifferens % (1000 * 60)) / 1000);
 
-    if (days === 0 && hours === 0 && minutes === 0 && seconds === 0) {
+    if (
+      (days === 0 && hours === 0 && minutes === 0 && seconds === 0) ||
+      (el.decrease && data - nowDate < 0)
+    ) {
       title.innerHTML = `Событие: ${el.textDesc}`;
       modal.style.display = "block";
+      buttonModal.setAttribute("data-id", el.id);
+      closeModalBtn.setAttribute("data-id", el.id);
       setTimeout(() => {
         closeModalBtn.style.visibility = "visible";
       }, 2000);
@@ -107,19 +115,28 @@ closeModalBtn.addEventListener("click", closeModal);
 
 function closeModal() {
   modal.style.display = "none";
-  detachModalEvents();
-}
-// снимаем обработчик события
-function detachModalEvents() {
-  closeModalBtn.removeEventListener("click", closeModal);
+  const dateId = Number(closeModalBtn.getAttribute("data-id"));
+  const date = JSON.parse(localStorage.getItem("date")) || [];
+  const dateNew = date.map((date) => {
+    if (date.id === dateId) {
+      return { ...date, decrease: false };
+    } else return date;
+  });
+  localStorage.setItem("date", JSON.stringify(dateNew));
 }
 
 // закрываем модальное окно по любому месту
 window.addEventListener("click", (event) => {
   // элемент по которому кликнули
-
   if (event.target === modal) {
     modal.style.display = "none";
-    detachModalEvents();
   }
+});
+
+buttonModal.addEventListener("click", () => {
+  const dateId = buttonModal.getAttribute("data-id");
+  const date = JSON.parse(localStorage.getItem("date")) || [];
+  const dateNew = date.filter((date) => date.id != dateId);
+  localStorage.setItem("date", JSON.stringify(dateNew));
+  modal.style.display = "none";
 });
