@@ -8,6 +8,11 @@
   </head>
 
   <body>
+    <nav class="nav">
+      <button class="nav-timer" disabled>Режим таймера</button>
+      <button class="nav-sec">Режим секундомера</button>
+    </nav>
+
     <div id="modal" class="modal">
       <div class="modal-content">
         <span id="closeModalBtn" class="close">&times;</span>
@@ -17,6 +22,14 @@
       </div>
     </div>
 
+    <section class="section-timer">
+      <h2>Таймер</h2>
+    </section>
+
+    <section class="section-sec">
+      <h2>Секундомер</h2>
+    </section>
+
     <div class="form-wrapper">
       <form id="form">
         <input type="datetime-local" id="date" required />
@@ -25,7 +38,8 @@
       </form>
     </div>
 
-    <div class="wrapper"></div>
+    <div class="wrapper-timer"></div>
+    <div class="wrapper-sec" style="display: none;"></div>
 
     <script src="./index.js"></script>
   </body>

@@ -1,12 +1,37 @@
 const form = document.querySelector("#form");
 const date = document.querySelector("#date");
 const desc = document.querySelector("#desc-top");
-const wrapper = document.querySelector(".wrapper");
+const wrapperTimer = document.querySelector(".wrapper-timer");
+const wrapperSec = document.querySelector(".wrapper-sec");
 const openModalBtn = document.getElementById("openModalBtn");
 const modal = document.getElementById("modal");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const title = modal.querySelector(".titleDesc");
 const buttonModal = document.querySelector(".button-modal");
+
+const sectionTimer = document.querySelector(".section-timer");
+const sectionSec = document.querySelector(".section-sec");
+
+const btnTimer = document.querySelector(".nav-timer");
+const btnSec = document.querySelector(".nav-sec");
+
+btnSec.addEventListener("click", () => {
+  sectionSec.style.display = "block";
+  sectionTimer.style.display = "none";
+  btnSec.setAttribute("disabled", "true");
+  btnTimer.disabled = false;
+  wrapperSec.style.display = "flex";
+  wrapperTimer.style.display = "none";
+});
+
+btnTimer.addEventListener("click", () => {
+  sectionSec.style.display = "none";
+  sectionTimer.style.display = "block";
+  btnTimer.setAttribute("disabled", "true");
+  btnSec.disabled = false;
+  wrapperSec.style.display = "none";
+  wrapperTimer.style.display = "flex";
+});
 
 form.addEventListener("submit", addTask);
 
@@ -40,7 +65,8 @@ function addTask(event) {
 
 function upDaterTimer() {
   const dataArr = JSON.parse(localStorage.getItem("date"));
-  wrapper.innerHTML = "";
+  wrapperTimer.innerHTML = "";
+  wrapperSec.innerHTML = "";
 
   if (!dataArr || dataArr.length === 0) return;
 
@@ -72,8 +98,6 @@ function upDaterTimer() {
     }
 
     const dateHtml = `
-      <div class="wrapper-timer">
-
      <div class="desc-main">${el.textDesc}</div>
 
         <div class="timer">
@@ -91,11 +115,13 @@ function upDaterTimer() {
         </div>
 
         <button class="deleteButton" data-id="${el.id}">Удалить</button>
-     </div>
-     
    `;
 
-    wrapper.innerHTML += dateHtml;
+    if (el.decrease) {
+      wrapperTimer.innerHTML += dateHtml;
+    } else {
+      wrapperSec.innerHTML += dateHtml;
+    }
   });
 }
 
@@ -103,7 +129,17 @@ setInterval(() => {
   upDaterTimer();
 }, 1000);
 
-wrapper.addEventListener("click", function (e) {
+wrapperTimer.addEventListener("click", function (e) {
+  if (e.target.classList.contains("deleteButton")) {
+    const dateId = e.target.getAttribute("data-id");
+    const date = JSON.parse(localStorage.getItem("date")) || [];
+    const dateNew = date.filter((date) => date.id != dateId);
+    localStorage.setItem("date", JSON.stringify(dateNew));
+    upDaterTimer();
+  }
+});
+
+wrapperSec.addEventListener("click", function (e) {
   if (e.target.classList.contains("deleteButton")) {
     const dateId = e.target.getAttribute("data-id");
     const date = JSON.parse(localStorage.getItem("date")) || [];
