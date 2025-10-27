@@ -1,4 +1,5 @@
 import { deleteTask } from "./src/deleteTask.js";
+import { changeTask } from "./src/changeTask.js";
 
 const form = document.querySelector("#form");
 const date = document.querySelector("#date");
@@ -65,7 +66,7 @@ function addTask(event) {
 }
 
 export function upDaterTimer() {
-  const dataArr = JSON.parse(localStorage.getItem("date"));
+  const dataArr = JSON.parse(localStorage.getItem("date")).sort((a,b) => a.id - b.id);
   wrapperTimer.innerHTML = "";
   wrapperSec.innerHTML = "";
 
@@ -114,8 +115,10 @@ export function upDaterTimer() {
           <div class="desc__minutes">минуты</div>
           <div class="desc__seconds">секунды</div>
         </div>
-
+         <div class="button-box">
         <button class="deleteButton" data-id="${el.id}">Удалить</button>
+        <button class="changeButton" data-id="${el.id}">Изменить</button>
+        </div>
    `;
 
     if (el.decrease) {
@@ -132,6 +135,9 @@ setInterval(() => {
 
 wrapperTimer.addEventListener("click", deleteTask);
 wrapperSec.addEventListener("click", deleteTask);
+
+wrapperTimer.addEventListener("click", changeTask);
+wrapperSec.addEventListener("click", changeTask);
 
 closeModalBtn.addEventListener("click", closeModal);
 
@@ -162,3 +168,5 @@ buttonModal.addEventListener("click", () => {
   localStorage.setItem("date", JSON.stringify(dateNew));
   modal.style.display = "none";
 });
+
+

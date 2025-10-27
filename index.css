@@ -70,11 +70,13 @@ body {
   margin-top: 10vh;
 }
 
-.deleteButton {
+.deleteButton,
+.changeButton {
   margin-bottom: 40px;
 }
 
-#form {
+#form,
+#form1 {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -110,8 +112,14 @@ button {
   padding-top: 3px;
 }
 
-.modal {
-  display: none; /* Скрыто по умолчанию */
+.button-box {
+  display: flex;
+  gap: 10px;
+}
+
+.modal,
+.modal-change {
+  display: none;
   position: fixed; /* Фиксированное положение */
   z-index: 1; /* Находится поверх всего */
   left: 0;
