@@ -1,3 +1,3 @@
 # Приложение Таймер
 
-https://mihail9595.github.io/timer/
+https://mihail9595.github.io/Timer/
